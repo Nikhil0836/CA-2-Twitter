@@ -72,10 +72,10 @@ app.post("/register/", async (request, response) => {
       const hashedPassword = await bcrypt.hash(password, 10);
       const createUserQuery = `
                 INSERT INTO
-                user (username,password,name,gender)
+                user (name,username,password,gender)
                 VALUES (
-                    '${username}',
                     '${name}',
+                    '${username}',
                     '${hashedPassword}',
                     '${gender}'
                 );`;
@@ -85,6 +85,23 @@ app.post("/register/", async (request, response) => {
     }
   }
 });
+
+/*app.get("/register/", async (request, response) => {
+  const { username } = request;
+  const getQuery = `
+    SELECT * FROM user;`;
+  const responseQuery = await db.all(getQuery);
+  response.send(responseQuery);
+});
+
+app.delete("/register/:userId/", async (request, response) => {
+  const { userId } = request.params;
+  const { username } = request;
+  const deleteQuery = `
+    DELETE FROM user WHERE user_id = ${userId};`;
+  await db.run(deleteQuery);
+  response.send("DELETED");
+});*/
 
 //API - 2
 
